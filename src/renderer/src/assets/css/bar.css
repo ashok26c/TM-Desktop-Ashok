@@ -1,0 +1,342 @@
+/* @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main-container {
+  width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.leftside-navbar-section {
+  width: 300px;
+  padding-top: 50px;
+  height: 100vh;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+}
+
+.right-side-content {
+  padding-left: 20px;
+  width: -webkit-fill-available;
+  padding-right: 20px;
+  margin-left: 300px;
+}
+
+.sidenav-logo {
+  font-family: "Poppins", sans-serif;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-bottom: 47px;
+}
+
+.sidenav-logo h2 {
+  font-weight: 700;
+  font-size: 25px;
+  color: #005BC4;
+}
+
+.sidenav-logo p {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.nav-ul {
+  font-family: "Poppins", sans-serif;
+}
+
+.nav-ul .logo-link {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-ul li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.nav-ul li .atag {
+  text-decoration: none;
+  color: #514E4C;
+  font-size: 15px;
+  padding: 16px 27px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  transition: 0.2s all ease-in-out;
+  cursor: pointer;
+}
+
+.nav-ul li .atag h3 {
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.nav-ul li .atag:hover {
+  background: #F5F7FD;
+}
+
+.nav-ul li .active {
+  background: #F5F7FD;
+}
+
+.dropdown-list {
+  text-decoration: none;
+  color: #514E4C;
+  font-size: 15px;
+  padding: 20px 15px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  column-gap: 10px;
+  transition: 0.2s all ease-in-out;
+}
+
+.dropdown-list h3 {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.dropdown-list:hover {
+  background: #F5F7FD;
+}
+
+.space-betwn-navbar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+} */
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/******CSS MAIN STYLING STARTS FROM HERE******/
+.main-container {
+  width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.leftside-navbar-section {
+  width: 300px;
+  padding-top: 50px;
+  height: 100vh;
+  background-color: white;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  transition: width 0.3s;
+}
+
+.right-side-content {
+  padding-left: 20px;
+  width: calc(100% - 300px); /* Adjust width based on the sidebar */
+  padding-right: 20px;
+  margin-left: 300px; /* Adjust margin based on the sidebar */
+}
+
+.sidenav-logo {
+  font-family: "Poppins", sans-serif;
+  padding-left: 35px;
+  padding-right: 35px;
+  margin-bottom: 47px;
+}
+
+.sidenav-logo h2 {
+  font-weight: 700;
+  font-size: 25px;
+  color: #005BC4;
+}
+
+.sidenav-logo p {
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.nav-ul {
+  font-family: "Poppins", sans-serif;
+}
+
+.nav-ul .logo-link {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-ul li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.nav-ul li .atag {
+  text-decoration: none;
+  color: #514E4C;
+  font-size: 15px;
+  padding: 16px 27px;
+  width: 100%;
+  height: auto;
+  display: inline-block;
+  transition: 0.2s all ease-in-out;
+  cursor: pointer;
+}
+
+.nav-ul li .atag h3 {
+  font-weight: 400;
+  font-size: 17px;
+}
+
+.nav-ul li .atag:hover {
+  background: #F5F7FD;
+}
+
+.nav-ul li .active {
+  background: #F5F7FD;
+}
+
+.dropdown-list {
+  text-decoration: none;
+  color: #514E4C;
+  font-size: 15px;
+  padding: 20px 15px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  column-gap: 10px;
+  transition: 0.2s all ease-in-out;
+}
+
+.dropdown-list h3 {
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.dropdown-list:hover {
+  background: #F5F7FD;
+}
+
+.space-betwn-navbar {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Notifications Dropdown Styling */
+.notifications-dropdown {
+  position: absolute;
+  top: 110px;
+  right: 90px;
+  width: 250px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Individual Notification Item */
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+/* Remove border for the last item */
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+/* Styling for the text in notifications */
+.notifications-dropdown p {
+  margin: 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Styling when there are no notifications */
+.notifications-dropdown p.no-notifications {
+  text-align: center;
+  padding: 20px;
+  color: #777;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .leftside-navbar-section {
+    width: 250px;
+  }
+
+  .right-side-content {
+    margin-left: 250px;
+    width: calc(100% - 250px);
+  }
+}
+
+@media (max-width: 768px) {
+  .leftside-navbar-section {
+    width: 200px;
+  }
+
+  .right-side-content {
+    margin-left: 200px;
+    width: calc(100% - 200px);
+  }
+
+  .sidenav-logo h2 {
+    font-size: 20px;
+  }
+
+  .nav-ul li .atag h3 {
+    font-size: 15px;
+  }
+
+  .dropdown-list h3 {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .leftside-navbar-section {
+    width: 100%;
+    height: auto;
+    position: relative;
+    padding-top: 20px;
+    overflow: visible; /* Ensure the sidebar content is visible */
+  }
+
+  .right-side-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidenav-logo {
+    text-align: center;
+  }
+
+  .nav-ul li .atag {
+    padding: 12px 15px;
+  }
+
+  .notifications-dropdown {
+    right: 0; /* Align notifications dropdown with the screen edge */
+    width: 100%; /* Make dropdown full-width */
+    max-height: 200px; /* Adjust height for mobile view */
+  }
+}

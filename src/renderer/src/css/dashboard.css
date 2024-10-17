@@ -1,0 +1,185 @@
+/* General styles for the table */
+table.calendar {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 99%;
+}
+
+/* Styles for table headers and cells */
+.calendar td,
+.calendar th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 55px;
+    position: relative;
+}
+
+/* Header styling */
+.header {
+    text-align: center;
+    font-weight: 700;
+    color: #005BC4;
+    padding: 20px 30px 50px 10px;
+    background-color: aliceblue;
+}
+
+/* Specific styles for the "absent" class */
+.absent {
+    background-color: #E3E3E375;
+    border-left: 4px solid #FF0000;
+    color: #FF0000;
+    padding: 7px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-weight: 400;
+    display: inline-block;
+    margin-top: 4px;
+    font-family: Poppins;
+    font-size: 16.76px;
+    font-weight: 400;
+    line-height: 25.14px;
+    text-align: left;
+
+}
+
+
+.clockIn {
+    background-color: #e3e3e375;
+    border-left: 4px solid #194214;
+    color: #194214;
+    padding: 7px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    /* height: 36px; */
+    text-align: left;
+    font-weight: 400;
+    display: inline-block;
+    /* margin-top: 4px; */
+    font-family: Poppins;
+    font-size: 16.76px;
+    font-weight: 400;
+    line-height: 25.14px;
+    text-align: left;
+
+}
+
+.clockOut {
+    background-color: #a200ff86;
+    border-left: 4px solid #a200ff;
+    color: #a200ff;
+    padding: 7px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-weight: 400;
+    display: inline-block;
+    margin-top: 4px;
+    font-family: Poppins;
+    font-size: 16.76px;
+    font-weight: 400;
+    line-height: 25.14px;
+    text-align: left;
+
+}
+
+/* Specific styles for the "onleave" class */
+.onBreak {
+    background-color: #E3E3E375;
+    border-left: 4px solid #2600BE;
+    color: #2600BE;
+    padding: 7px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    /* border-radius: 4px; */
+    height: 36px;
+    text-align: left;
+    font-weight: 400;
+    display: inline-block;
+    margin-top: 4px;
+    font-family: Poppins;
+    font-size: 16.76px;
+    font-weight: 400;
+    line-height: 25.14px;
+    text-align: left;
+
+}
+
+.attendance-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 200px;
+  }
+  
+  .attendance-container div {
+    padding: 5px 0;
+    font-size: 14px;
+    color: #333;
+  }
+
+
+
+/* Specific styles for the "delay" class */
+.delay {
+    background-color: #E3E3E375;
+    border-left: 4px solid #FFBE16;
+    color: #FFBE16;
+    padding: 7px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-weight: 400;
+    display: inline-block;
+    margin-top: 4px;
+    font-family: Poppins;
+    font-size: 16.76px;
+    font-weight: 400;
+    line-height: 25.14px;
+    text-align: left;
+}
+
+.dates {
+    margin-left: 20px;
+}
+
+.calendar {
+    margin-bottom: 30px;
+}
+
+/* monthly attendance report  css closed*/
+
+
+/* Over  Time report  css closed*/
+
+/* Specific styles for the "delay" class */
+.calendar .over-time {
+    background-color: #E3E3E375;
+    border-left: 4px solid #000000;
+    color: #000000;
+    padding: 7px;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 36px;
+    text-align: left;
+    font-weight: 400;
+    display: inline-block;
+    margin-top: 4px;
+    font-family: Poppins;
+    font-size: 16.76px;
+    font-weight: 400;
+    line-height: 25.14px;
+    text-align: left;
+}
