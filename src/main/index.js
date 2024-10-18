@@ -33,7 +33,9 @@ function createWindow() {
     ipcMain.handle('start-ffmpeg', (event, args) => {
       if (!ffmpegProcess) {
         console.log("Spawning FFmpeg process");
-        const outputPath = path.join(__dirname, 'output.mp4');
+        // const timestamp=Date.now()
+        // const outputPath = path.join(__dirname,`output_${timestamp}.mp4`);
+        // console.log("🚀 ~ ipcMain.handle ~ outputPath:", outputPath)
     
         // Create the FFmpeg process to accept continuous streams
         ffmpegProcess = spawn('ffmpeg', [
@@ -42,14 +44,16 @@ function createWindow() {
           '-i', '-',              // Pipe input from stdin
           '-vcodec', 'libx264',   // Video codec
           '-preset', 'fast',      // Compression speed
-          '-crf', '28',           // Quality level
-          outputPath,             // Output file path
+          '-crf', '32',           // Quality level
+          '-f','matroska',
+          'pipe:1'
         ]);
 
         ffmpegProcess.on('error', (err) => {
           console.error('FFmpeg process error:', err);
       });
       ffmpegProcess.stderr.on('data', (data) => {
+        
         console.error('FFmpeg stderr data received:', data.toString());
     });
     
@@ -57,21 +61,24 @@ function createWindow() {
         ffmpegProcess.stdin.on('error', (err) => {
           console.error('FFmpeg stdin error:', err);
         });
+         // Handle the FFmpeg output
+    ffmpegProcess.stdout.on('data', (data) => {
+      console.log('FFmpeg stdout data:', data.toString('utf8')); // Check actual data
+      // Send the processed video chunk to the frontend
+      event.sender.send('ffmpeg-output', data);
+    });
         ffmpegProcess.on('close', (code) => {
           console.log(`FFmpeg process closed with code ${code}`);
           ffmpegProcess = null;  // Reset the process after it closes
         });
-        ffmpegProcess.stdout.on('data', (data) => {
-          console.log('FFmpeg stdout data received:', data);
-          const processedArrayBuffer = Buffer.from(data);
-          console.log('Sending ffmpeg-output event:', processedArrayBuffer);
-          mainWindow.webContents.send('ffmpeg-output', processedArrayBuffer);
-        })
+      
       }
     
       // Ensure the data being passed is an ArrayBuffer
       if (args.videoStream instanceof ArrayBuffer) {
         const buffer = Buffer.from(args.videoStream);
+        console.log('Buffer size:', buffer.length); // Log the size of the buffer
+
     
         // Write the buffer to FFmpeg's stdin without closing the stream
         ffmpegProcess.stdin.write(buffer, (err) => {
