@@ -9,13 +9,13 @@ const customElectron = {
 
 const customApi = {
   send: (channel, data) => {
-    const validChannels = ['start-ffmpeg', 'take-screenshot']; // List of valid channels
+    const validChannels = ['start-ffmpeg', 'take-screenshot','ffmpeg-output']; // List of valid channels
     if (validChannels.includes(channel)) {
       ipcRenderer.invoke(channel, data);
     }
   },
   on: (channel, func) => {
-    const validChannels = ['screenshot-data'];
+    const validChannels = ['screenshot-data','ffmpeg-output'];
     if (validChannels.includes(channel)) {
       ipcRenderer.on(channel, (event, ...args) => func(...args));
     }

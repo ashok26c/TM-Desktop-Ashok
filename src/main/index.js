@@ -6,6 +6,9 @@ import { join } from 'path';
 import { electronApp, optimizer, is } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import { spawn } from 'child_process'; // Import the child_process module
+import os from 'os';
+const numCores = os.cpus().length; // to Get the number of CPU cores
+console.log("🚀 ~ numCores:", numCores)
 
 
 let mainWindow;
@@ -33,29 +36,35 @@ function createWindow() {
     ipcMain.handle('start-ffmpeg', (event, args) => {
       if (!ffmpegProcess) {
         console.log("Spawning FFmpeg process");
-        // const timestamp=Date.now()
-        // const outputPath = path.join(__dirname,`output_${timestamp}.mp4`);
-        // console.log("🚀 ~ ipcMain.handle ~ outputPath:", outputPath)
-    
         // Create the FFmpeg process to accept continuous streams
         ffmpegProcess = spawn('ffmpeg', [
-          '-y',                  // Overwrite output files
-          '-f', 'webm',           // Input format
-          '-i', '-',              // Pipe input from stdin
-          '-vcodec', 'libx264',   // Video codec
-          '-preset', 'fast',      // Compression speed
-          '-crf', '32',           // Quality level
-          '-f','matroska',
-          'pipe:1'
+          '-y',                   // Overwrite output
+          '-f', 'webm',            // Input format
+          '-i', '-',               // Pipe input from stdin
+          '-vcodec', 'libvpx-vp9', // Use VP9 codec
+          '-crf', '23',            // Quality level (lower CRF = better quality)
+          '-f', 'webm',            // Output format
+          'pipe:1'                 // Output to pipe
         ]);
 
-        ffmpegProcess.on('error', (err) => {
-          console.error('FFmpeg process error:', err);
-      });
-      ffmpegProcess.stderr.on('data', (data) => {
-        
-        console.error('FFmpeg stderr data received:', data.toString());
-    });
+
+        // ffmpegProcess = spawn('ffmpeg', [
+        //   '-y',                  // Overwrite output files
+        //   '-f', 'webm',           // Input format
+        //   '-i', '-',              // Pipe input from stdin
+        //   '-vcodec', 'libvpx-vp9',   // Video codec
+        //   '-acodec', 'libvorbis',     // Audio codec
+        //   '-preset', 'fast',      // Compression speed
+        //   '-crf', '32',           // Quality level
+        //   '-g','240',
+        //   '-f','matroska',
+        //   'pipe:1'
+        // ]);
+        // '-threads',numCores.toString(),
+
+
+
+
     
     
         ffmpegProcess.stdin.on('error', (err) => {
@@ -63,30 +72,24 @@ function createWindow() {
         });
          // Handle the FFmpeg output
     ffmpegProcess.stdout.on('data', (data) => {
-      console.log('FFmpeg stdout data:', data.toString('utf8')); // Check actual data
-      // Send the processed video chunk to the frontend
-      event.sender.send('ffmpeg-output', data);
+      const processedArrayBuffer = Buffer.from(data);
+      mainWindow.webContents.send('ffmpeg-output', processedArrayBuffer); // Convert to base64 before sending
     });
         ffmpegProcess.on('close', (code) => {
           console.log(`FFmpeg process closed with code ${code}`);
           ffmpegProcess = null;  // Reset the process after it closes
-        });
-      
-      }
-    
+        });  
+      } 
       // Ensure the data being passed is an ArrayBuffer
       if (args.videoStream instanceof ArrayBuffer) {
         const buffer = Buffer.from(args.videoStream);
         console.log('Buffer size:', buffer.length); // Log the size of the buffer
-
-    
         // Write the buffer to FFmpeg's stdin without closing the stream
         ffmpegProcess.stdin.write(buffer, (err) => {
           if (err) {
             console.error('Error writing buffer to FFmpeg stdin:', err);
             return;
           }
-    
           console.log('Buffer successfully written to FFmpeg stdin');
         });
       } else {
