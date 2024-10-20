@@ -156,7 +156,7 @@ app.whenReady().then(() => {
         mainWindow.webContents.send('stop-recording');
     });
 
-    ipcMain.on('take-screenshot', async (event, sessionToken) => {
+    ipcMain.handle('take-screenshot', async (event, sessionToken) => {
         console.log('Screenshot request received');
         const { desktopCapturer } = require('electron');
       
