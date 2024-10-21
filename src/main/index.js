@@ -32,7 +32,7 @@ function createWindow() {
     mainWindow.loadURL('http://192.168.1.84:8000')
 
     let ffmpegProcess = null;
-
+    let videoBuffer=Buffer.alloc(0);
     ipcMain.handle('start-ffmpeg', (event, args) => {
       if (!ffmpegProcess) {
         console.log("Spawning FFmpeg process");
@@ -71,10 +71,22 @@ function createWindow() {
           console.error('FFmpeg stdin error:', err);
         });
          // Handle the FFmpeg output
-    ffmpegProcess.stdout.on('data', (data) => {
-      const processedArrayBuffer = Buffer.from(data);
-      mainWindow.webContents.send('ffmpeg-output', processedArrayBuffer); // Convert to base64 before sending
-    });
+         ffmpegProcess.stdout.on('data', (data) => {
+            // Append the new data to the buffer
+            videoBuffer = Buffer.concat([videoBuffer, data]);
+            console.log("--------------------------------------:", videoBuffer.length)
+      
+            // Check if we have enough data (e.g., 20 seconds worth of video)
+            // You might need to adjust the calculation based on your video bitrate
+            const targetSize = 623625;
+            console.log("--------------------------------------:", targetSize)
+
+            if (videoBuffer.length >= targetSize) {
+              // Send the data to the renderer
+              mainWindow.webContents.send('ffmpeg-output', videoBuffer);
+              videoBuffer = Buffer.alloc(0); // Reset the buffer after sending
+            }
+          });
         ffmpegProcess.on('close', (code) => {
           console.log(`FFmpeg process closed with code ${code}`);
           ffmpegProcess = null;  // Reset the process after it closes
